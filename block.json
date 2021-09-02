@@ -1,0 +1,27 @@
+{
+	"apiVersion": 2,
+	"name": "pb/editor-note",
+	"title": "Editor Note",
+	"description": "This note is only visible within the editor.",
+	"category": "text",
+	"keywords": [
+		"comment",
+		"markup"
+	],
+	"textdomain": "pb",
+	"attributes": {
+		"content": {
+			"type": "string",
+			"selector": "p"
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false,
+		"reusable": false,
+		"defaultStylePicker": false
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css"
+}

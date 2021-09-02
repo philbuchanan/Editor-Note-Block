@@ -1,0 +1,24 @@
+:root {
+	--wp--default--editor-note--color--text: #b4473c;
+}
+
+// 1. This opacity matches the placeholder opacity
+.wp-block-pb-editor-note {
+	color: var(--wp--default--editor-note--color--text);
+	font-family: monospace;
+
+	&:before {
+		content: "%%";
+		position: absolute;
+		left: -1.75em;
+		opacity: 0.62; // [1]
+	}
+}
+
+.wp-block-pb-editor-note__resolve {
+	padding-right: 16px !important;
+
+	svg {
+		margin-right: 4px !important;
+	}
+}
