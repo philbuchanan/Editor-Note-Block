@@ -4,7 +4,7 @@
  * Plugin Name: Editor Note
  * Description: Add editor comments that only render within the block editor.
  * Plugin URI: https://github.com/philbuchanan/Editor-Note-Block
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 5.8
  * Tested up to: 5.8
  * Requires PHP: 7.3

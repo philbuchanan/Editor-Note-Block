@@ -64,46 +64,45 @@ registerBlockType('pb/editor-note', {
 						</ToolbarButton>
 					</ToolbarGroup>
 				</BlockControls>
-				<div { ...useBlockProps() }>
-					<RichText
-						identifier="content"
-						tagName="p"
-						placeholder={ __('Editor note text', 'pb') }
-						value={ attributes.content }
-						multiline={ false }
-						onChange={ (content) => setAttributes({content}) }
-						onSplit={ (value, isOriginal) => {
-							let name = 'core/paragraph';
-							let newAttributes;
+				<RichText
+					{ ...useBlockProps() }
+					identifier="content"
+					tagName="p"
+					placeholder={ __('Editor note text', 'pb') }
+					value={ attributes.content }
+					multiline={ false }
+					onChange={ (content) => setAttributes({content}) }
+					onSplit={ (value, isOriginal) => {
+						let name = 'core/paragraph';
+						let newAttributes;
 
-							if (isOriginal || value) {
-								name = 'pb/editor-note';
-								newAttributes = {
-									...attributes,
-									content: value,
-								};
+						if (isOriginal || value) {
+							name = 'pb/editor-note';
+							newAttributes = {
+								...attributes,
+								content: value,
 							};
+						};
 
-							const block = createBlock(name, newAttributes);
+						const block = createBlock(name, newAttributes);
 
-							if (isOriginal) {
-								block.clientId = clientId;
-							}
-
-							return block;
-						} }
-						onReplace={ onReplace }
-						onRemove={ onRemove }
-						onMerge={ mergeBlocks }
-						aria-label={ attributes.content
-							? __('Editor comment', 'pb')
-							: __('Empty block; start writing to add an editor note', 'pb')
+						if (isOriginal) {
+							block.clientId = clientId;
 						}
-						data-empty={ attributes.content ? false : true }
-						allowedFormats={ [] }
-						__unstableAllowPrefixTransformations={ true }
-					/>
-				</div>
+
+						return block;
+					} }
+					onReplace={ onReplace }
+					onRemove={ onRemove }
+					onMerge={ mergeBlocks }
+					aria-label={ attributes.content
+						? __('Editor comment', 'pb')
+						: __('Empty block; start writing to add an editor note', 'pb')
+					}
+					data-empty={ attributes.content ? false : true }
+					allowedFormats={ [] }
+					__unstableAllowPrefixTransformations={ true }
+				/>
 			</Fragment>
 		);
 	},
