@@ -100,17 +100,12 @@ function pb_render_editor_notes_page() {
 								</div>
 							</td>
 							<td>
-								<?php $blocks = parse_blocks(get_the_content());
-								if (is_array($blocks) && !empty($blocks)) {
-									foreach($blocks as $block) {
-										if ($block['blockName'] != 'pb/editor-note') {
-											continue;
-										}
+								<?php $editor_notes = pb_get_editor_note_blocks(parse_blocks(get_the_content()));
 
-										if (!empty($block['attrs']['content'])) { ?>
-											<p><?php echo esc_html($block['attrs']['content']); ?></p>
-										<?php }
-									}
+								if (!empty($editor_notes)) {
+									foreach($editor_notes as $note) { ?>
+										<p><?php echo $note; ?></p>
+									<?php }
 								} ?>
 							</td>
 							<td>
@@ -139,3 +134,23 @@ function pb_render_editor_notes_page() {
 		<?php endif; wp_reset_postdata(); ?>
 	</div>
 <?php }
+
+/**
+ * Recursive function to search InnerBlocks for editor notes
+ */
+function pb_get_editor_note_blocks($blocks, $editor_notes = array()) {
+	if (is_array($blocks) && !empty($blocks)) {
+		foreach($blocks as $block) {
+			if ($block['blockName'] == 'pb/editor-note') {
+				if (!empty($block['attrs']['content'])) {
+					$editor_notes[] = esc_html($block['attrs']['content']);
+				}
+			}
+			else {
+				$editor_notes = pb_get_editor_note_blocks($block['innerBlocks'], $editor_notes);
+			}
+		}
+	}
+
+	return $editor_notes;
+}
