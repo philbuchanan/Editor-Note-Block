@@ -4,7 +4,7 @@
  * Plugin Name: Editor Note
  * Description: Add editor comments that only render within the block editor.
  * Plugin URI: https://github.com/philbuchanan/Editor-Note-Block
- * Version: 1.1.0
+ * Version: 1.1.1
  * Update URI: false
  * Requires at least: 5.8
  * Tested up to: 5.9
@@ -66,8 +66,11 @@ function pb_render_editor_notes_page() {
 						<th>
 							<?php esc_html_e('Title', 'pb'); ?>
 						</th>
+						<th>
+							<?php esc_html_e('Notes', 'pb'); ?>
+						</th>
 						<th style="width: 160px;">
-							<?php esc_html_e('Author', 'pb'); ?>
+							<?php esc_html_e('Post Author', 'pb'); ?>
 						</th>
 						<th style="width: 130px;">
 							<?php esc_html_e('Modified', 'pb'); ?>
@@ -95,6 +98,20 @@ function pb_render_editor_notes_page() {
 										</a>
 									</span>
 								</div>
+							</td>
+							<td>
+								<?php $blocks = parse_blocks(get_the_content());
+								if (is_array($blocks) && !empty($blocks)) {
+									foreach($blocks as $block) {
+										if ($block['blockName'] != 'pb/editor-note') {
+											continue;
+										}
+
+										if (!empty($block['attrs']['content'])) { ?>
+											<p><?php echo esc_html($block['attrs']['content']); ?></p>
+										<?php }
+									}
+								} ?>
 							</td>
 							<td>
 								<?php echo esc_html(get_the_author_meta('display_name')); ?>
